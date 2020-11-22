@@ -1,0 +1,53 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+using namespace std;
+class Resizable {
+public:
+	virtual void resize(int percent) {};
+};
+class GeometricObject {
+public:
+	virtual double getPerimeter() = 0;
+	virtual double getArea() = 0;
+};
+class Circle : public GeometricObject {
+	double radius = 1.0;
+public:
+	Circle(double radius) {
+		this->radius = radius;
+	}
+	double getPerimeter() override {
+		return 3.14 * 2 * radius;
+	}
+	double getArea() override {
+		return 3.14 * radius * radius;
+	}
+	void getInfo() {
+		cout << "Circle {Radius = " << radius << ", Area = " << getArea()
+			<< ", Perimeter = " << getPerimeter() << "}" << endl;
+	}
+};
+class ResizableCircle : public Circle, public Resizable {
+private:
+	double radius;
+public:
+	ResizableCircle(double radius) :Circle(radius) {
+		this->radius = radius;
+	}
+	void resize(int percent) override {
+		radius *= percent / 100.0;
+	}
+	void getInfo() {
+		cout << "ResizableCircle {Radius =" << radius;
+		resize(50);
+		cout << ", Radius resized=" << radius << "}" <<endl;
+	}
+};
+int main() {
+	Circle c(5.0);
+	c.getInfo();
+	ResizableCircle r(5.5);
+	r.getInfo();
+	return 0;
+}
