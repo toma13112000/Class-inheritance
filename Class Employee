@@ -1,0 +1,52 @@
+#include <cmath>
+#include <string>
+#include <iostream>
+using namespace std;
+class Employee {
+private:
+    int id;
+    string firstName;
+    string lastName;
+    int salary;
+public:
+    Employee(int id, int salary, string firstName, string lastName) {
+        this->lastName = lastName;
+        this->firstName = firstName;
+        this->id = id;
+        this->salary = salary;
+    }
+    int getID() {
+        return id;
+    }
+    string getFirstName() {
+        return firstName;
+    }
+    string getLastName() {
+        return lastName;
+    }
+    string getName() {
+        return firstName + lastName;
+    }
+    int getSalary() {
+        return salary;
+    }
+    void setSalary(int salary) {
+        this->salary = salary;
+    }
+    int getAnnualSalary() {
+        return salary * 12;
+    }
+    int raiseSalary(int percent) {
+        return salary * (1 + percent * 0.01);
+    }
+    void getinfo() {
+        cout << "ID:" << id << "\nFirstName:" << firstName << "\nLastName" << lastName << "\nsalary:" << salary;
+
+    }
+};
+int main() {
+    Employee empl(28403, 500000, "Tomiris", "Ibrayeva");
+    empl.getinfo();
+    empl.raiseSalary(10);
+    return 0;
+}
