@@ -1,0 +1,93 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+class Person {
+	string name;
+	string address;
+public:
+	Person() {}
+	Person(string name, string address) {
+		this->name = name;
+		this->address = address;
+	}
+	string getName() {
+		return name;
+	}
+	string getAddress() {
+		return address;
+	}
+	void setAddress(string address) {
+		this->address = address;
+	}
+	void getMessage() {
+		cout << "Name: "<< getName() << " \nAddress : " << getAddress() << endl;
+	}
+};
+class Student :public Person {
+	string program;
+	int year;
+	double fee;
+public:
+	Student() {}
+	Student(string name, string address, string program, int year, double fee) :Person(name, address) {
+		this->program = program;
+		this->year = year;
+		this->fee = fee;
+	}
+	string getProgram() {
+		return program;
+	}
+	void setProgram(string program) {
+		this->program = program;
+	}
+	int getYear() {
+		return year;
+	}
+	void setYear() {
+		this->year = year;
+	}
+	double getFee() {
+		return fee;
+	}
+	void setFee(double fee) {
+		this->fee = fee;
+	}
+	void getInfo() {
+		cout << "Program: " << getProgram() << " \nYear : " << getYear() << " \nFee : " << getFee() << endl;
+	}
+};
+class Staff :public Person {
+	string school;
+	double pay;
+public:
+	Staff() {}
+	Staff(string name, string address, string school, double pay) :Person(name, address) {
+		this->school = school;
+		this->pay = pay;
+	}
+	string getSchool() {
+		return school;
+	}
+	void setSchool() {
+		this->school = school;
+	}
+	double getPay() {
+		return pay;
+	}
+	void setPay() {
+		this->pay = pay;
+	}
+	void getInfo() {
+		cout << "School : " << getSchool() << " \nPay :  " << getPay() << endl;
+	}
+};
+int main() {
+	Person a("Tom", "Bridge avenue 12");
+	Student b("Tom", "Bridge avenue 12", "math", 2, 125.5);
+	Staff c("Tom", "Bridge avenue 12", "jkashdlas", 450.8);
+	a.getMessage();
+	b.getInfo();
+	c.getInfo();
+	return 0;
+}
