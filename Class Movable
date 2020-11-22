@@ -1,0 +1,121 @@
+#include <iostream>
+#include <string>
+using namespace std;
+class Movable {
+public:
+	virtual void moveUp() = 0;
+	virtual void moveDown() = 0;
+	virtual void moveLeft() = 0;
+	virtual void moveRight() = 0;
+};
+class MovablePoint : public Movable {
+	int x = 0;
+	int y = 0;
+	int xSpeed = 0;
+	int ySpeed = 0;
+public:
+	MovablePoint(int x, int y, int xSpeed, int ySpeed) {
+		this->x = x;
+		this->y = y;
+		this->xSpeed = xSpeed;
+		this->ySpeed = ySpeed;
+	}
+	void getInfo() {
+		cout << "MovablePoint {" << "x=" << x
+			<< ", y=" << y << ", xSpeed=" << xSpeed
+			<< ", ySpeed=" << ySpeed << "}";
+	}
+	void moveUp() override {
+		y -= ySpeed;
+	}
+	void moveDown() override {
+		y += ySpeed;;
+	}
+	void moveLeft() override {
+		x -= xSpeed;
+	}
+	void moveRight() override {
+		x += xSpeed;
+	}
+};
+class MovableCircle : public Movable {
+private:
+	int radius;
+	MovablePoint* center;
+public:
+	virtual ~MovableCircle() {
+		delete center;
+	}
+	MovableCircle(int x, int y, int xSpeed, int ySpeed, int radius) {
+		this->radius = radius;
+		this->center = new MovablePoint(x, y, xSpeed, ySpeed);
+	}
+	void getInfo() {
+		cout << "MovableCircle {" << "center=";
+		center->getInfo();
+		cout << ", radius=" << radius << "}" << endl;
+	}
+	void moveUp() override {
+		center->moveUp();
+	}
+	void moveDown() override {
+		center->moveDown();
+	}
+	void moveLeft() override {
+		center->moveLeft();
+	}
+	void moveRight() override {
+		center->moveRight();
+	}
+};
+class MovableRectangle : public Movable {
+private:
+	MovablePoint* topLeft;
+	MovablePoint* bottomRight;
+public:
+	virtual ~MovableRectangle() {
+		delete topLeft;
+		delete bottomRight;
+	}
+	MovableRectangle(int x1, int y1, int x2, int y2, int xSpeed, int ySpeed) {
+		topLeft = new MovablePoint(x1, y1, xSpeed, ySpeed);
+		bottomRight = new MovablePoint(x2, y2, xSpeed, ySpeed);
+	}
+	void getInfo() {
+		cout << "MovableRectangle {" << "topLeft=";
+		topLeft->getInfo();
+		cout << "}" << endl;
+		cout << "MovableRectangle {" << "bottomRight=";
+		bottomRight->getInfo();
+		cout << "}" << endl;
+	}
+	void moveUp() override {
+		topLeft->moveUp();
+		bottomRight->moveUp();
+	}
+	void moveDown() override {
+		topLeft->moveDown();
+		bottomRight->moveDown();
+	}
+	void moveRight() override {
+		topLeft->moveRight();
+		bottomRight->moveRight();
+	}
+	void moveLeft() override {
+		topLeft->moveLeft();
+		bottomRight->moveLeft();
+	}
+};
+int main() {
+	MovablePoint p(5, 6, 10, 15);
+	p.getInfo();
+	cout << endl;
+	p.moveLeft();
+	p.getInfo();
+	cout << endl;
+	MovableCircle c(4, 2, 7, 3, 20);
+	c.getInfo();
+	MovableRectangle r(4, 6, 8, 2, 3, 7);
+	r.getInfo();
+	return 0;
+}
