@@ -1,0 +1,170 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+class MyComplex {
+private:
+	double real, imag;
+public:
+	MyComplex() {
+		real = 0;
+		imag = 0;
+	}
+	MyComplex(double real, double imag) {
+		this->real = real;
+		this->imag = imag;
+	}
+	double getReal() const {
+		return real;
+	}
+	double getImag() const {
+		return imag;
+	}
+	void setReal() {
+		this->real = real;
+	}
+	void setImag() {
+		this->imag = imag;
+	}
+	void setValue() {
+		this->real = real;
+		this->imag = imag;
+	}
+	void getInfo() {
+		if (imag < 0) {
+			cout << "(" << getReal() << " " << getImag() << "i)" ;
+		}
+		else {
+			cout << "(" << getReal() << " + " << getImag() << "i)" ;
+		}
+	}
+	bool isReal() {
+		return this->real == 0;
+	}
+	bool isImaginary() {
+		return this->imag == 0;
+	}
+	bool equals(double real, double imag) {
+		if ((this->real == real) && (this->imag == imag)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	bool equals(MyComplex* another) {
+		if ((this->real == another->getReal()) && (this->imag == another->getImag())) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	double magnitude() {
+		return int(sqrt(real * real + imag * imag));
+	}
+	double argumentInRadians() {
+		return double(atan2(this->imag, this->real));
+	}
+	MyComplex* add(MyComplex* right) {
+		return new MyComplex(this->real + right->getReal(), this->imag + right->getImag());
+	}
+	MyComplex* subtract(MyComplex* right) {
+		return new MyComplex(this->real - right->getReal(), this->imag - right->getImag());
+	}
+	MyComplex* addNew(MyComplex* right) {
+		return new MyComplex(right->getReal() + this->real, right->getImag() + this->imag);
+	}
+	MyComplex* substractNew(MyComplex* right) {
+		return new MyComplex(right->getReal() - this->real, right->getImag() - this->imag);
+	}
+	MyComplex* conjugate() {
+		return new MyComplex(this->real, -1 * this->imag); // construct a new instance and return the constructed instance
+	}
+	MyComplex* multiply(MyComplex* right) {
+		double a, b, c, d;
+		a = this->real;
+		b = this->imag;
+		c = right->getReal();
+		d = right->getImag();
+		this->real = double(a * c - b * d);
+		this->imag = double(a * d + b * c);
+		return this;
+	}
+	MyComplex* divide(MyComplex* right) {
+		double a, b, c, d;
+		a = this->real;
+		b = this->imag;
+		c = right->getReal();
+		d = right->getImag();
+		this->real = double(a * c + b * d) / (c * c + d * d);
+		this->imag = double(b * c - a * d) / (c * c + d * d);
+		return this;
+	}
+	void getMessage() {
+		cout << "Magnitude = " << magnitude() << ", ArgumentInRadians = " <<
+			argumentInRadians() << endl;
+	}
+};
+int main() {
+	MyComplex m1(1.1, 2.2);
+	MyComplex m2(3.3, 4.4);
+	cout << "Number 1 is: ";
+	m1.getInfo();
+	if (m1.isReal()) {
+		cout << " is a pure real number";
+	}
+	else {
+		cout << " is NOT a pure real number" << ",";
+	}
+	if (m1.isImaginary()) {
+		cout << " is a pure imaginary number";
+	}
+	else {
+		cout << " is NOT a pure imaginary number" << endl;
+	}
+	cout << "Number 2 is: ";
+	m2.getInfo();
+	if (m2.isReal()) {
+		cout << " is a pure real number";
+	}
+	else {
+		cout << " is NOT a pure real number" << ",";
+	}
+	if (m2.isImaginary()) {
+		cout << " is a pure imaginary number";
+	}
+	else {
+		cout << " is NOT a pure imaginary number" << endl;
+	}
+	cout << "Number 1 : ";
+	m1.getMessage();
+	cout << "Number 2 : ";
+	m2.getMessage();
+	if (m1.equals(3.3, 4.4)) {
+		m1.getInfo();
+		cout << " is equal to ";
+		m2.getInfo();
+	}
+	else {
+		m1.getInfo();
+		cout << " is NOT equal to ";
+		m2.getInfo();
+		cout << endl;
+	}
+	MyComplex* add = m1.add(&m2);
+	m1.getInfo();
+	cout << " + ";
+	m2.getInfo();
+	cout << " = ";
+	add->getInfo();
+	cout << endl;
+	MyComplex* sub = m1.subtract(&m2);
+	m1.getInfo();
+	cout << " - ";
+	m2.getInfo();
+	cout << " = ";
+	sub->getInfo();
+	cout << endl;
+	return 0;
+}
