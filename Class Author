@@ -1,0 +1,76 @@
+#include <string>
+#include <iostream>
+#include <vector>
+using namespace std;
+class Author {
+private:
+	string name;
+	string email;
+	char gender;
+public:
+	Author(string name, string email, char gender) {
+		this->name = name;
+		this->email = email;
+		this->gender = gender;
+	}
+	string getName() {
+		return name;
+	}
+	string getEmail() {
+		return email;
+	}
+	void setEmail(string email) {
+		this->email = email;
+	}
+	char getGender() {
+		return gender;
+	}
+	void getInfo() {
+		cout << "Author[name = " + getName() + ", email = " + 
+			getEmail() + ", gender = " + getGender() + "]" << endl;
+	}
+};
+class Book {
+private:
+	double price;
+	string name;
+	int qty = 0;
+	Author* authors;
+public:
+	Book(string name, int qty, double price) {
+		this->name = name;
+		this->qty = qty;
+		this->price = price;
+	}
+	string getName() {
+		return name;
+	}
+	Author* getAuthors() {
+		return authors;
+	}
+	double getPrice() {
+		return price;
+	}
+	void setPrice(double price) {
+		this->price = price;
+	}
+	int getQty() {
+		return qty;
+	}
+	void setQty(int qty) {
+		this->qty = qty;
+	}
+	void getMessage() {
+		cout << "Book [name = " << getName() << " authors = " << getAuthors() << " email = " << authors[0].getEmail()
+			<< " price = " << price << " qty = " << getQty() << "]" << endl;
+	}
+	string getAuthorNames() {
+		return Author*getName();
+	}
+};
+int main() {
+	Author a("Rowling", "skjhaljda@email", 'W');
+	Book b("Harry", 454, 644.5 );
+	b.getMessage();
+	return 0;
+}
