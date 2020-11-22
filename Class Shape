@@ -1,0 +1,103 @@
+#include <string>
+#include <iostream>
+#include <cmath>
+using namespace std;
+class Shape {
+protected:
+    string color = "red";
+    bool filled = true;
+public:
+    Shape() {}
+    Shape(string color, bool filled);
+    string getColor() {
+        return color;
+    }
+    void setColor(string color) {
+        this->color = color;
+    }
+    bool isFilled() {
+        return filled;
+    }
+    void setFilled() {
+        this->filled = filled;
+    }
+};
+class Circle :public Shape {
+private:
+    double radius = 1.0;
+public:
+    Circle() {}
+    Circle(double radius);
+    Circle(double radius, string color, bool filled) :Shape(color, filled) {
+        this->radius = radius;
+    }
+    double getRadius() {
+        return radius;
+    }
+    void setRadius() {
+        this->radius = radius;
+    }
+    double getArea() {
+        return radius * radius * 3.14;
+    }
+    double getPerimeter() {
+        return 2 * 3.14 * radius;
+    }
+};
+class Rectangle :public Shape {
+private:
+    double width = 1.0;
+    double length = 1.0;
+public:
+    Rectangle() {}
+    Rectangle(double width, double length);
+    Rectangle(double width, double lenght, string color, bool filled) :Shape(color, filled) {
+        this->width = width;
+        this->length = length;
+    }
+    double getWidth() {
+        return width;
+    }
+    void setWidth() {
+        this->width = width;
+    }
+    double getLength() {
+        return length;
+    }
+    void setLength() {
+        this->length = length;
+    }
+    double getArea() {
+        return width * length;
+    }
+    double getPerimeter() {
+        return 2 * (width + length);
+    }
+};
+class Square :public Rectangle, public Shape {
+    double side = 1;
+public:
+    Square() {}
+    Square(double side);
+    Square(double side, string color, bool filled, double width, double length) :Rectangle(width, length), Shape(color, filled) {
+        this->side = side;
+    }
+    double getSide() {
+        return side;
+    }
+    void setSide() {
+        this->side = side;
+    }
+    void setWidth(double side) {
+        this->side = side;
+    }
+    void setLength(double side) {
+        this->side = side;
+    }
+};
+int main() {
+    Shape a("blue", false);
+    Circle b(5.0);
+    Rectangle c(7.3, 4.5);
+    return 0;
+}
